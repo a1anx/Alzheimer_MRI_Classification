@@ -1,3 +1,5 @@
 Augmented_Data/
-Split_Data/
 archive.zip
+split_augmented_data/
+**/processed_data
+venv/

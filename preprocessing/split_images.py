@@ -22,8 +22,12 @@ import pandas as pd
 import splitfolders
 import directories as dir
 
-# Split images into designated ratios
-splitfolders.ratio(dir.INIT_INPUT, output=dir.INIT_OUTPUT, seed=123, ratio=(0.7, 0.1, 0.2), group_prefix=None)
+# Create directory for split data  
+split_output = os.path.join(dir.ROOT, "split_augmented_data")
+os.makedirs(split_output, exist_ok=True)
+
+# Split images into designated ratios of 0.7, 0.1, 0.2
+splitfolders.ratio(dir.INIT_INPUT, output=split_output, seed=123, ratio=(0.7, 0.1, 0.2), group_prefix=None)
 
 # Delete non-Alzheimer images in train set
 for filename in os.listdir(dir.TRAIN):
