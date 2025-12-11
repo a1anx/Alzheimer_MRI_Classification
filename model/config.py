@@ -11,10 +11,9 @@ RANDOM_SEED = 123
 
 # Model hyperparameters (v3)
 MODEL = {
-    'dense1_size': ,         # Dimension of first dense layer
-    'dense2_size': 256,         # Dimension of secodn dense layer
-    'dropout': 0.45,            # Dropout probability
-    
+    'dense1_size': 2048,         # Dimension of first dense layer
+    'dense2_size': 1024,         # Dimension of second dense layer
+    'dropout': 0.45,             # Dropout probability
 }
 
 # Training hyperparameters

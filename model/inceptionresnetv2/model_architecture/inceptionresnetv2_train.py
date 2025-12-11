@@ -25,13 +25,23 @@ IMG_HEIGHT = 299
 IMG_WIDTH = 299
 BATCH_SIZE = config.TRAINING['batch_size']
 
-# Load data
-train_generator = .flow_from_directory(
-    TRAIN_DIR,
-    target_size=(IMG_HEIGHT, IMG_WIDTH),
-    batch_size=BATCH_SIZE,
-    class_mode='categorical'
-)
+# Load all .npy files from directory and extract labels from filenames
+def load_data(data_dir):
+    images = []
+    labels = []
+
+    label_types = {
+        'NonDemented' : 0,
+        'VeryMildDemented' : 1,
+        'MildDemented' : 2,
+        'ModerateDemented' : 3
+    }
+
+    # Iterate over all 
+    for file in Path(data_dir).glob('*.npy'):
+        image = np.load(file)
+        images.append(image)
+
 
 val_generator = val_datagen.flow_from_directory(
     VAL_DIR,
