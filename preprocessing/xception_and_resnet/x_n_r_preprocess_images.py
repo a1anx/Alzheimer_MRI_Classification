@@ -3,7 +3,7 @@ After running split_images.py,
 Run this script ONCE to: 
 1) Resize to match input dimensions required of xception and resnet (x_n_r) models (299,299)
 2) Normalize MRI pixel values to range of (-1,1)
-3) Perform data augmentation to increase size and diversity of train dataset by factor of 6
+3) Perform data augmentation to increase size and diversity of train dataset by factor of 7
 
 INPUT:
 Raw JPEG MRI images in dir.TRAIN, dir.VAL, dir.TEST.

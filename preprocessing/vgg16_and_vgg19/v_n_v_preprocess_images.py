@@ -3,7 +3,7 @@ After running split_images.py,
 Run this script ONCE to:
 1) Resize to match input dimensions required of VGG16 and VGG19 models (224,224)
 2) Normalize MRI pixel values using ImageNet mean subtraction
-3) Perform data augmentation to increase size and diversity of train dataset by factor of 6
+3) Perform data augmentation to increase size and diversity of train dataset by factor of 7
 
 INPUT:
 Raw JPEG MRI images in dir.TRAIN, dir.VAL, dir.TEST.
@@ -55,6 +55,7 @@ aug_data = ImageDataGenerator(
     fill_mode="nearest"
 )
 
+# Preprocess all train dataset
 for root, dirs, files in os.walk(dir.TRAIN):
     for f in files:
         # Skip non-image files
