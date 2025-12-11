@@ -5,7 +5,7 @@ import tensorflow as tf
 from .. import config
 
 
-class InceptionResNetV2_Finetune_Model():
+class inceptionresnetv2():
     def __init__(
         self,
         dense1_size: int,

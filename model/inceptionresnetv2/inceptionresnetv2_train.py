@@ -2,8 +2,10 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 import os
-from model_architecture.inceptionresnetv2_model import InceptionResNetV2_Finetune_Model
-from ... import config
+import sys
+from model_architecture.inceptionresnetv2_model import inceptionresnetv2
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
 
 # Set random seed for reproducibility
 tf.random.set_seed(config.RANDOM_SEED)
@@ -57,7 +59,7 @@ test_generator = test_datagen.flow_from_directory(
 
 # Create model
 print("Creating InceptionResNetV2 model...")
-model_wrapper = InceptionResNetV2_Finetune_Model(
+model_wrapper = inceptionresnetv2(
     dense1_size=config.MODEL['dense1_size'],
     dense2_size=config.MODEL['dense2_size'],
     dropout=config.MODEL['dropout']
