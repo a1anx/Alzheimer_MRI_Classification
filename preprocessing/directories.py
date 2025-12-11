@@ -1,6 +1,6 @@
 """
-Pathnames for input and output. 
-Make sure to create a folder called "Split Augmented Data"
+Pathnames for input and output for preprocessing  
+Make sure to create a folder called "split_augmented_data"
 """
 
 # Pathname for project root
@@ -14,9 +14,11 @@ TEST = '/Users/andykim/Documents/2025 Fall/NNDL/Project/NNDL_MRI_PROJECT/split_a
 VAL = '/Users/andykim/Documents/2025 Fall/NNDL/Project/NNDL_MRI_PROJECT/split_augmented_data/val'
 TRAIN = '/Users/andykim/Documents/2025 Fall/NNDL/Project/NNDL_MRI_PROJECT/split_augmented_data/train'
 
-# Pathname processed_data per model (for running preprocessing)
+# Pathname for processed_data per model (for running preprocessing)
 X_N_R = '/Users/andykim/Documents/2025 Fall/NNDL/Project/NNDL_MRI_PROJECT/preprocessing/xception_and_resnet'
 V_N_V = '/Users/andykim/Documents/2025 Fall/NNDL/Project/NNDL_MRI_PROJECT/preprocessing/vgg16_and_vgg19'
+
+ 
 
 
 

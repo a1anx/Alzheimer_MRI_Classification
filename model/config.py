@@ -1,15 +1,19 @@
 """
 Configuration file for inceptionresnetv2, xception, vgg16, vgg19 
 """
+import os
+
+# Set project root directory
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Random seed for reproducibility
 RANDOM_SEED = 123
 
 # Model hyperparameters (v3)
 MODEL = {
-    'dense1_size': ,         # Dimension of token embeddings
-    'dense2_size': 256,         # Dimension of token embeddings
-    'dropout': 0.45,            # Dropout probability (initially 0.45)
+    'dense1_size': ,         # Dimension of first dense layer
+    'dense2_size': 256,         # Dimension of secodn dense layer
+    'dropout': 0.45,            # Dropout probability
     
 }
 
@@ -27,3 +31,21 @@ TRAINING = {
     'scheduler_patience': 5,    # Wait 5 epochs before reducing LR
     'scheduler_min_lr': 1e-6,   # Minimum learning rate
 }
+
+# Data paths for vgg16_and_vgg19
+v_n_v_DATA = {
+    'data_dir' : os.path.join(ROOT, 'pre-processing', 'vgg16_and_vgg19', 'processed_data'), 
+    'train_dir' : os.path.join(ROOT, 'pre-processing', 'vgg16_and_vgg19', 'processed_data', 'train'),  
+    'val_dir' : os.path.join(ROOT, 'pre-processing', 'vgg16_and_vgg19', 'processed_data', 'val'),  
+    'test_dir' : os.path.join(ROOT, 'pre-processing', 'vgg16_and_vgg19', 'processed_data', 'test') 
+}
+
+# Data paths for xception_and_resnet
+x_n_r_DATA = {
+    'data_dir' : os.path.join(ROOT, 'pre-processing', 'xception_and_resnet', 'processed_data'), 
+    'train_dir' : os.path.join(ROOT, 'pre-processing', 'xception_and_resnet', 'processed_data', 'train'),  
+    'val_dir' : os.path.join(ROOT, 'pre-processing', 'xception_and_resnet', 'processed_data', 'val'),  
+    'test_dir' : os.path.join(ROOT, 'pre-processing', 'xception_and_resnet', 'processed_data', 'test') 
+}
+
+

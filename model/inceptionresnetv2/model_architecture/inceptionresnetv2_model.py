@@ -2,8 +2,12 @@ from tensorflow.keras.applications import InceptionResNetV2
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 import tensorflow as tf 
-from .. import config
+import sys
+import os
 
+# Add parent directory path to import directories module 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+import config
 
 class inceptionresnetv2():
     def __init__(

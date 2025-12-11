@@ -2,40 +2,31 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 import os
+import numpy as np
 import sys
+from pathlib import Path
 from model_architecture.inceptionresnetv2_model import inceptionresnetv2
+
+# Add parent directory path to import directories module 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
-# Set random seed for reproducibility
+# Set seed from config file
 tf.random.set_seed(config.RANDOM_SEED)
 
 # Data paths
-DATA_DIR = '/Users/andykim/Documents/2025 Fall/NNDL/Project/NNDL_MRI_PROJECT/split_augmented_data'
-TRAIN_DIR = os.path.join(DATA_DIR, 'train')
-VAL_DIR = os.path.join(DATA_DIR, 'val')
-TEST_DIR = os.path.join(DATA_DIR, 'test')
+DATA_DIR = config.x_n_r_DATA['data_dir']
+TRAIN_DIR = config.x_n_r_DATA['train_dir']
+VAL_DIR = config.x_n_r_DATA['val_dir']
+TEST_DIR = config.x_n_r_DATA['test_dir']
 
 # Image parameters
 IMG_HEIGHT = 299
 IMG_WIDTH = 299
 BATCH_SIZE = config.TRAINING['batch_size']
 
-# Data generators
-train_datagen = ImageDataGenerator(
-    rescale=1./255,
-    rotation_range=10,
-    width_shift_range=0.1,
-    height_shift_range=0.1,
-    horizontal_flip=True,
-    zoom_range=0.1
-)
-
-val_datagen = ImageDataGenerator(rescale=1./255)
-test_datagen = ImageDataGenerator(rescale=1./255)
-
 # Load data
-train_generator = train_datagen.flow_from_directory(
+train_generator = .flow_from_directory(
     TRAIN_DIR,
     target_size=(IMG_HEIGHT, IMG_WIDTH),
     batch_size=BATCH_SIZE,
