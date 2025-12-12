@@ -9,7 +9,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Random seed for reproducibility
 RANDOM_SEED = 123
 
-# Model hyperparameters (v3)
+#Model hyperparameters (v3)
 MODEL = {
     'dense1_size': 1536,         # Dimension of first dense layer
     'dense2_size': 1024,         # Dimension of second dense layer
