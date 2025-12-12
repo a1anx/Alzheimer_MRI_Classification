@@ -16,11 +16,11 @@ class xception():
         dense2_size: int, 
         dropout: float = None, 
     ):
-        super().__init__()
+        # super().__init__()
 
         # Use config values if not specified
-        self.dense1_size = dense1_size or config.MODEL['dense1_size']
-        self.dense2_size = dense2_size or config.MODEL['dense2_size']
+        # self.dense1_size = dense1_size or config.MODEL['dense1_size']
+        # self.dense2_size = dense2_size or config.MODEL['dense2_size']
         self.dropout = dropout or config.MODEL['dropout']
 
         base = Xception(

@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support
-from xception_model import Xception
+from xception_model import xception
 
 # Add parent directory path to import directories module 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
