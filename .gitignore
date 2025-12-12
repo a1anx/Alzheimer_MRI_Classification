@@ -3,3 +3,5 @@ archive.zip
 split_augmented_data/
 **/processed_data
 venv/
+.DS_Store
+
