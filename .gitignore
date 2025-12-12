@@ -1,4 +1,8 @@
-Augmented_Data/
-Split_Data/
+Augmented Data/
 archive.zip
+split_augmented_data/
+**/processed_data
 venv/
+.DS_Store
+
+.DS_Store
