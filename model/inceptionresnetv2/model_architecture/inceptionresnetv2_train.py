@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support
 from datetime import datetime
 
-# Go up two directories to access the config file - MUST do this before importing inceptionresnetv2_model
+# Go up two directories to access the config file 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 import config
 
