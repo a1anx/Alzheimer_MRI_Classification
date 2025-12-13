@@ -8,7 +8,7 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Pathname for initial Augmented Data folder (before running splitfolders)
-INIT_INPUT = os.path.join(ROOT, 'Augmented Data')
+INIT_INPUT = os.path.join(ROOT, 'Augumented Data')
 
 # Pathname for MRI scan images in train, validation, and test sets in  (before running preprocessing)
 TEST = os.path.join(ROOT, 'split_augmented_data', 'test')
