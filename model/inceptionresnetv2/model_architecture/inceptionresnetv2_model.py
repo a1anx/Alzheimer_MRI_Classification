@@ -28,10 +28,11 @@ class inceptionresnetv2():
             include_top=False, 
             input_shape=(299,299,3)
         )
+        base.trainable = False
         x = base.output
         x = GlobalAveragePooling2D()(x)
-        x = Dense(self.dense1_size, activation='relu')(x)
         x = Dropout(self.dropout)(x)
+        x = Dense(self.dense1_size, activation='relu')(x)
         x = Dense(self.dense2_size, activation='relu')(x)
         x = Dropout(self.dropout)(x)
         output = Dense(4, activation='softmax')(x)
