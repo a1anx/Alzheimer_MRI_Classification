@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support
 from datetime import datetime
 from inceptionresnetv2_model import inceptionresnetv2
-
+from pathlib import Path
 # Go up two directories to access the config file
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 import config
 
 # Set random seed for reproducibility across runs
