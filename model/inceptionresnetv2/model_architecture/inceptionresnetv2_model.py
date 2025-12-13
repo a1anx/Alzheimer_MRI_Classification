@@ -4,9 +4,10 @@ from tensorflow.keras.models import Model
 import tensorflow as tf 
 import sys
 import os
+from pathlib import Path
 
 # Add parent directory path to import directories module 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 import config
 
 class inceptionresnetv2():
