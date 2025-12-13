@@ -1,5 +1,5 @@
 from tensorflow.keras.applications import InceptionResNetV2
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout, Flatten
 from tensorflow.keras.models import Model
 import tensorflow as tf 
 import sys
@@ -31,8 +31,9 @@ class inceptionresnetv2():
         base.trainable = False
         x = base.output
         x = GlobalAveragePooling2D()(x)
+        x = Flatten()(x)
+        x = Dense(self.dense2_size, activation='relu')(x)
         x = Dropout(self.dropout)(x)
-        x = Dense(self.dense1_size, activation='relu')(x)
         x = Dense(self.dense2_size, activation='relu')(x)
         x = Dropout(self.dropout)(x)
         output = Dense(4, activation='softmax')(x)
