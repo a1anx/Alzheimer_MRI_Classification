@@ -22,11 +22,12 @@ import os
 import sys
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-# Add parent directory path to import directories module
+# Need to go up two directories to import the directories module
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import directories as dir
 
-# Label types 
+# Map each dementia severity class to a numeric label
+# These should match the label mappings used in the model training scripts
 label_types = {
     'NonDemented': 0,
     'VeryMildDemented': 1,
@@ -34,32 +35,29 @@ label_types = {
     'ModerateDemented': 3
 }
 
-# Resizing constant
+# Xception and ResNet models expect 299x299 input images
 resize_constant = (299, 299)
 
 def count_class_distribution(dataset_path):
     """
-    Count the number of images in each class category.
-
-    Args:
-        dataset_path: Path to dataset directory containing class subdirectories
-
-    Returns:
-        Dictionary with class counts and total count
+    Walks through the dataset directory and counts how many images belong to each class.
+    Useful for checking if we have class imbalance in our data.
     """
     class_counts = {class_name: 0 for class_name in label_types.keys()}
 
+    # Walk through all subdirectories in the dataset
     for root, dirs, files in os.walk(dataset_path):
-        # Get the class name from the directory structure
+        # Figure out which class this directory belongs to by checking the path
         for class_name in label_types.keys():
             if class_name in root:
-                # Count only .jpeg files
+                # Only count actual image files, not other random files
                 jpeg_files = [f for f in files if f.lower().endswith('.jpeg')]
                 class_counts[class_name] += len(jpeg_files)
                 break
 
     total_count = sum(class_counts.values())
 
+    # Print out the distribution nicely formatted
     for class_name, count in class_counts.items():
         percentage = (count / total_count * 100) if total_count > 0 else 0
         print(f"{class_name:20s}: {count:4d} images ({percentage:5.2f}%)")
@@ -92,75 +90,70 @@ num_augmentations = 6
 
 # Data augmentation generator
 aug_data = ImageDataGenerator(
-    rotation_range=10,
-    width_shift_range=0.05,
-    height_shift_range=0.05,
-    shear_range=5,
-    zoom_range=0.05,
-    horizontal_flip=True,
-    fill_mode="nearest"
+    rotation_range=10,              # rotate images up to 10 degrees
+    width_shift_range=0.05,         # shift horizontally by up to 5%
+    height_shift_range=0.05,        # shift vertically by up to 5%
+    shear_range=5,                  # apply shear transformation
+    zoom_range=0.05,                # zoom in/out by up to 5%
+    horizontal_flip=True,           # randomly flip images horizontally
+    fill_mode="nearest"             # fill in new pixels with nearest neighbor values
 )
 
 # Track processed images per class for verification
 processed_counts = {class_name: 0 for class_name in label_types.keys()}
 
-# Preprocess all train dataset
+# Process all training images - both save original and create augmented versions
 for root, dirs, files in os.walk(dir.TRAIN):
     for f in files:
-        # Skip non-image files
         if not f.lower().endswith('.jpeg'):
             continue
 
         file_path = os.path.join(root, f)
 
-        # Identify which class this image belongs to
+        # Figure out the class by checking which label is in the directory path
         current_class = None
         for class_name in label_types.keys():
             if class_name in root:
                 current_class = class_name
                 break
 
-        # Open image
         img = Image.open(file_path)
-
-        # Convert to RGB
         rgb_img = img.convert("RGB")
 
-        # Resize to 299x299 using Lanczos algorithm
+        # Resize using Lanczos for better quality than simple bilinear
         resized_img = rgb_img.resize(resize_constant, resample=Image.LANCZOS)
 
-        # Convert to array (before normalization for augmentation)
+        # Keep unnormalized version for augmentation, normalize later
         arr = np.array(resized_img, dtype=np.float32)
 
-        # Save original image (with normalization)
+        # Normalize pixel values from [0, 255] to [-1, 1] range
+        # This is what Xception and ResNet expect as input
         arr_original = (arr / 127.5) - 1.0
         save_path = os.path.join(processed_train_data, f"{os.path.splitext(f)[0]}.npy")
         np.save(save_path, arr_original)
 
-        # Track this image
         if current_class:
             processed_counts[current_class] += 1
 
-        # Generate augmented images that preserves original 4 class ratio
-        arr_reshaped = arr.reshape((1,) + arr.shape)  # Add batch dimension for generator
+        # Create augmented versions of this image
+        # The generator needs a batch dimension, so reshape from (299, 299, 3) to (1, 299, 299, 3)
+        arr_reshaped = arr.reshape((1,) + arr.shape)
         aug_iter = aug_data.flow(arr_reshaped, batch_size=1)
 
         for i in range(num_augmentations):
-            # Generate augmented image
             aug_arr = next(aug_iter)[0]
 
-            # Apply x_n_r normalization
+            # Normalize the augmented image the same way
             aug_arr_normalized = (aug_arr / 127.5) - 1.0
 
-            # Save augmented image
             aug_save_path = os.path.join(processed_train_data, f"{os.path.splitext(f)[0]}_aug{i+1}.npy")
             np.save(aug_save_path, aug_arr_normalized)
 
-            # Track augmented image (same class as original)
+            # Count this as part of the same class as the original
             if current_class:
                 processed_counts[current_class] += 1
 
-# Verify that augmentation preserved class ratio
+# Show the class distribution after augmentation and verify it matches the original ratios
 print("After Augmentation:")
 total_processed = sum(processed_counts.values())
 for class_name, count in processed_counts.items():
@@ -170,7 +163,8 @@ for class_name, count in processed_counts.items():
 print(f"{'TOTAL':20s}: {total_processed:5d} images")
 print(f"Augmentation Factor: {total_processed / original_total:.2f}x" if original_total > 0 else "N/A")
 
-# Verify ratio preservation
+# Double-check that each class maintained its proportion
+# Since each image gets the same number of augmentations, the ratios should be identical
 print("\nRatio Verification:")
 ratio_preserved = True
 for class_name in label_types.keys():

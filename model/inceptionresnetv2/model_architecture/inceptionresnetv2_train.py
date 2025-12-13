@@ -9,20 +9,20 @@ from sklearn.metrics import classification_report, confusion_matrix, precision_r
 from datetime import datetime
 from inceptionresnetv2_model import inceptionresnetv2
 
-# Add parent directory path to import config module
+# Go up two directories to access the config file
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
-# Set seed from config file
+# Set random seed for reproducibility across runs
 tf.random.set_seed(config.RANDOM_SEED)
 
-# Data paths
+# Pull data paths from config
 DATA_DIR = config.x_n_r_DATA['data_dir']
 TRAIN_DIR = config.x_n_r_DATA['train_dir']
 VAL_DIR = config.x_n_r_DATA['val_dir']
 TEST_DIR = config.x_n_r_DATA['test_dir']
 
-# Image parameters
+# InceptionResNetV2 expects 299x299 images
 IMG_HEIGHT = 299
 IMG_WIDTH = 299
 BATCH_SIZE = config.TRAINING['batch_size']
@@ -107,9 +107,14 @@ def load_test_data(data_dir):
 train_generator = DataGenerator(TRAIN_DIR, batch_size=BATCH_SIZE, shuffle=True)
 val_generator = DataGenerator(VAL_DIR, batch_size=BATCH_SIZE, shuffle=False)
 
+# Print dataset sizes
+print(f"Training samples: {len(train_generator.file_paths)} ({len(train_generator)} batches)")
+print(f"Validation samples: {len(val_generator.file_paths)} ({len(val_generator)} batches)")
+
 # Load test data
 X_test, y_test = load_test_data(TEST_DIR)
 y_test = tf.keras.utils.to_categorical(y_test, num_classes=4)
+print(f"Test samples: {len(X_test)}")
 print(f"Test data shape: {X_test.shape}, Labels shape: {y_test.shape}")
 
 #
