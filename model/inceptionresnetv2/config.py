@@ -11,16 +11,16 @@ RANDOM_SEED = 123
 
 #Model hyperparameters (v3)
 MODEL = {
-    'dense1_size': 1536,         # Dimension of first dense layer
+    'dense1_size': 1024,         # Dimension of first dense layer
     'dense2_size': 1024,         # Dimension of second dense layer
-    'dropout': 0.3,              # Dropout probability
+    'dropout': 0.5,              # Dropout probability
 }
 
 # Training hyperparameters
 TRAINING = {
     'batch_size': 32,           # Batch size for training
     'learning_rate': 0.0001,     # Learning rate for Adam
-    'max_epochs': 50,           # Maximum number of training epochs
+    'max_epochs': 30,           # Maximum number of training epochs
     'patience': 10,             # Early stopping patience
     'scheduler_factor': 0.5,    # Factor to reduce LR (multiply by 0.5)
     'scheduler_patience': 5,    # Wait 5 epochs before reducing LR
