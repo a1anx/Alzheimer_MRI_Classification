@@ -1,7 +1,7 @@
 #Specific folders shown in personal folders
 Augmented Data/
+Augumented Data/
 archive.zip
-<<<<<<< HEAD
 Raw_Data/
 #General folders to ignore
 split_augmented_data/
@@ -17,4 +17,7 @@ split_augmented_data/
 #Standard objects to ignore
 venv/
 .DS_Store
-
+# GCP Specific folders to ignore
+Miniconda3-latest-Linux-x86_64.sh
+Miniconda3-py39_4.12.0-Linux-x86_64.sh
+Miniforge3-Linux-x86_64.sh
