@@ -1,6 +1,7 @@
 #Specific folders shown in personal folders
 Augmented Data/
 archive.zip
+<<<<<<< HEAD
 Raw_Data/
 #General folders to ignore
 split_augmented_data/
@@ -9,3 +10,11 @@ split_augmented_data/
 venv/
 .DS_Store
 model_output/
+Raw_Data/
+#General folders to ignore
+split_augmented_data/
+**/processed_data/
+#Standard objects to ignore
+venv/
+.DS_Store
+
