@@ -3,8 +3,12 @@ Configuration file for InceptionResNetV2
 """
 import os
 
-# Set project root directory
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Set project root directory - go up 2 levels from config.py to reach project root
+# config.py is at: /model/inceptionresnetv2/config.py
+# parent is /model/inceptionresnetv2, parent.parent is /model, parent.parent.parent is project root
+_config_dir = os.path.dirname(os.path.abspath(__file__))  # /model/inceptionresnetv2
+_model_dir = os.path.dirname(_config_dir)  # /model
+ROOT = os.path.dirname(_model_dir)  # project root
 
 # Random seed for reproducibility
 RANDOM_SEED = 123
