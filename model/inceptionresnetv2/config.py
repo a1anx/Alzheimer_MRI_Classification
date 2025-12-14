@@ -23,7 +23,7 @@ MODEL = {
 # Training hyperparameters
 TRAINING = {
     'batch_size': 32,           # Batch size for training
-    'learning_rate': 0.0001,    # Learning rate for Adam
+    'learning_rate': 0.003,    # Learning rate for Adam
     'max_epochs': 30,           # Maximum number of training epochs
     'patience': 10,             # Early stopping patience
     'scheduler_factor': 0.5,    # Factor to reduce LR (multiply by 0.5)
