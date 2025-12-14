@@ -1,12 +1,13 @@
 from tensorflow.keras.applications import Xception
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout, Flatten
 from tensorflow.keras.models import Model
 import tensorflow as tf 
 import sys
 import os
+from pathlib import Path
 
 # Add parent directory path to import directories module 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 import config
 
 class xception():
@@ -16,11 +17,9 @@ class xception():
         dense2_size: int, 
         dropout: float = None, 
     ):
-        # super().__init__()
-
         # Use config values if not specified
-        # self.dense1_size = dense1_size or config.MODEL['dense1_size']
-        # self.dense2_size = dense2_size or config.MODEL['dense2_size']
+        self.dense1_size = dense1_size or config.MODEL['dense1_size']
+        self.dense2_size = dense2_size or config.MODEL['dense2_size']
         self.dropout = dropout or config.MODEL['dropout']
 
         base = Xception(
@@ -32,14 +31,16 @@ class xception():
         base.trainable = False
         x = base.output
         #Based on paper, we add the following layers
-        #Global Average Pooling 2D. This also covers the flattening layer
+        #Global Average Pooling 2D. 
         x = GlobalAveragePooling2D()(x)
+        # Flatten layer
+        x = Flatten()(x)
         #Dropout 1
         x = Dropout(self.dropout)(x)
         #Dense 1
-        x = Dense(1024, activation='relu')(x)
+        x = Dense(self.dense1_size, activation='relu')(x)
         #Dense 2
-        x = Dense(1024, activation='relu')(x)
+        x = Dense(self.dense2_size, activation='relu')(x)
         #Dropout 2
         x = Dropout(self.dropout)(x)
         #Dense 3
