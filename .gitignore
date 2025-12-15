@@ -3,13 +3,14 @@ Augmented Data/
 Augumented Data/
 archive.zip
 Raw_Data/
+Raw_Data.zip
 #General folders to ignore
 split_augmented_data/
 **/processed_data/
 #Standard objects to ignore
 venv/
 .DS_Store
-model_output/
+
 Raw_Data/
 #General folders to ignore
 split_augmented_data/
