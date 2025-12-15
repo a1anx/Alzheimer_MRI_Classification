@@ -1,0 +1,5 @@
+﻿Class,Precision,Recall,F1-Score,Support,,Metric,Run 2
+NonDemented,0.67,0.76,0.71,415,,Test Accuracy,0.6901
+VeryMildDemented,0.48,0.16,0.24,300,,Test Loss,0.6768
+MildDemented,0.59,0.83,0.69,351,,,
+ModerateDemented,0.96,0.98,0.97,286,,,

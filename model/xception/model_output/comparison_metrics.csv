@@ -1,0 +1,6 @@
+﻿Metric,Run 1,Run 2
+Test Accuracy,0.7781,0.8217 
+Test Loss,0.4855,0.4298 
+Weighted Precision,0.7724,0.8172 
+Weighted Recall,0.7781,0.8217 
+Weighted F1 Score,0.7717,0.8187 
