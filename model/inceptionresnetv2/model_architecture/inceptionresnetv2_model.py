@@ -22,6 +22,7 @@ class inceptionresnetv2():
         self.dense2_size = dense2_size or config.MODEL['dense2_size']
         self.dropout = dropout or config.MODEL['dropout']
 
+        # Import InceptionResnetV2
         base = InceptionResNetV2(
             weights='imagenet', 
             include_top=False, 
