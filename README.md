@@ -1,10 +1,8 @@
 # Alzheimer's Disease Classification from MRI Scans
 
-E4040 Neural Networks and Deep Learning - Fall 2025 Project
+## What the Models Do
 
-## What Our Models Do
-
-Classifies brain MRI scans into four Alzheimer's severity levels using transfer learning with CNNs. We trained Xception and InceptionResNetV2 models on ~33k augmented brain images and got 82%+ accuracy on the test set.
+Classifies brain MRI scans into four Alzheimer's severity levels using transfer learning with CNNs. Xception and InceptionResNetV2 models were trained on ~33k augmented brain images and got 82%+ accuracy on the test set.
 
 The models are particularly good at detecting severe cases (100% accuracy for ModerateDemented) but struggle with early-stage detection (65% F1 for VeryMildDemented).
 
@@ -57,14 +55,14 @@ Each training run creates a timestamped folder in `model_output/` with:
 ├── model/
 │   ├── xception/              # Xception model (82.17% test acc)
 │   ├── inceptionresnetv2/     # InceptionResNetV2 (82.40% test acc)
-│   ├── vgg16/                 # VGG16 (not trained)
-│   └── vgg19/                 # VGG19 (not trained)
+│   ├── vgg16/                 # VGG16 (not trained yet - coming soon!)
+│   └── vgg19/                 # VGG19 (not trained yet - coming soon!)
 ├── preprocessing/
 │   ├── split_images.py        # Train/val/test split
+│   ├── directories.py         # Dynamic path names for files
 │   ├── xception_and_resnet/   # 299x299 preprocessing
 │   └── vgg16_and_vgg19/       # 224x224 preprocessing
-├── Augumented Data/           # Original Kaggle dataset
-├── References/                # Paper and reference notebooks
+├── README.md
 └── requirements.txt
 ```
 
